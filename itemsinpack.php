@@ -46,11 +46,11 @@ class ItemsInPack extends Module
      */
     public function install()
     {
-        if (!parent::install() OR
-            !$this->alterTable('add') OR
-            !$this->registerHook('actionAdminControllerSetMedia') OR
-            !$this->registerHook('actionProductUpdate') OR
-            !$this->registerHook('displayAdminProductsExtra')
+        if (!parent::install()
+            || !$this->alterTable('add')
+            || !$this->registerHook('header')
+            || !$this->registerHook('actionProductUpdate')
+            || !$this->registerHook('displayAdminProductsExtra')
         ) {
             return false;
         }
@@ -65,7 +65,7 @@ class ItemsInPack extends Module
      */
     public function uninstall()
     {
-        if (!parent::uninstall() OR !$this->alterTable('remove')) {
+        if (!parent::uninstall() || !$this->alterTable('remove')) {
             return false;
         }
 
@@ -83,7 +83,7 @@ class ItemsInPack extends Module
     {
         switch ($method) {
             case 'add':
-                $sql = 'ALTER TABLE ' . _DB_PREFIX_ . 'product ADD `items_in_pack` INT(11) NOT NULL DEFAULT 1';
+                $sql = 'ALTER TABLE ' . _DB_PREFIX_ . 'product ADD `items_in_pack` INT(10) DEFAULT 1';
                 break;
             case 'remove':
                 $sql = 'ALTER TABLE ' . _DB_PREFIX_ . 'product DROP COLUMN `items_in_pack`';
@@ -114,15 +114,13 @@ class ItemsInPack extends Module
     }
 
     /**
-     * Hook action admin controller set media
+     * Hook header
      *
      * @param mixed $params
      */
-    public function hookActionAdminControllerSetMedia($params)
+    public function hookHeader($params)
     {
-        if ($this->context->controller->controller_name == 'AdminProducts' && Tools::getValue('id_product')) {
-            $this->context->controller->addJS($this->_path . '/js/itemsinpack.js');
-        }
+        $this->context->controller->addJS($this->_path . '/js/itemsinpack.js');
     }
 
     /**
