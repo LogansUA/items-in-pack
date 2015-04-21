@@ -1,10 +1,10 @@
-<div id="" class="panel product-tab">
+<div class="panel product-tab">
     <h3>{l s='Items in pack' mod='itemsinpack'}</h3>
 
     <div class="form-group">
         <label class="control-label col-lg-3" for="pack">Items in pack</label>
         <div class="col-lg-5">
-            <input id="pack" class="form-control" min="1" name="items-in-pack" type="number" value="{$itemsInPack}" />
+            <input id="pack" class="form-control fixed-width-sm" min="1" name="items-in-pack" type="number" value="{$itemsInPack}" />
         </div>
     </div>
 
