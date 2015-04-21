@@ -11,12 +11,6 @@ if (!defined('_PS_VERSION_')) {
  */
 class ItemsInPack extends Module
 {
-
-    /**
-     * @var int $itemsInPack Items in Pack
-     */
-    private $itemsInPack = 1;
-
     /**
      * @var boolean error
      */
@@ -31,7 +25,7 @@ class ItemsInPack extends Module
         $this->tab           = 'items_in_pack';
         $this->version       = '1.0';
         $this->author        = 'Oleg';
-        $this->need_instance = 0;
+//        $this->need_instance = 0;
 
         parent::__construct();
 
@@ -100,7 +94,7 @@ class ItemsInPack extends Module
     /**
      * Hook display admin products extra
      *
-     * @param mixed $params Params
+     * @param array $params Params
      *
      * @return mixed
      */
@@ -116,7 +110,7 @@ class ItemsInPack extends Module
     /**
      * Hook header
      *
-     * @param mixed $params
+     * @param array $params
      */
     public function hookHeader($params)
     {
@@ -126,7 +120,7 @@ class ItemsInPack extends Module
     /**
      * Hook action product update
      *
-     * @param mixed $params
+     * @param array $params
      */
     public function hookActionProductUpdate($params)
     {
@@ -151,6 +145,7 @@ class ItemsInPack extends Module
     public function getCustomField($idProduct)
     {
         $result = Db::getInstance()->ExecuteS('SELECT items_in_pack FROM ' . _DB_PREFIX_ . 'product WHERE id_product = ' . (int) $idProduct);
+
         if (!$result) {
             return [];
         }
