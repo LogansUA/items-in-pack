@@ -44,6 +44,7 @@ class ItemsInPack extends Module
             || !$this->alterTable('add')
             || !$this->registerHook('header')
             || !$this->registerHook('actionProductUpdate')
+            || !$this->registerHook('displayProductButtons')
             || !$this->registerHook('displayAdminProductsExtra')
         ) {
             return false;
@@ -91,21 +92,6 @@ class ItemsInPack extends Module
         return true;
     }
 
-    /**
-     * Hook display admin products extra
-     *
-     * @param array $params Params
-     *
-     * @return mixed
-     */
-    public function hookDisplayAdminProductsExtra($params)
-    {
-        if (Validate::isLoadedObject($product = new Product((int) Tools::getValue('id_product')))) {
-            $this->prepareNewTab();
-
-            return $this->display(__FILE__, 'itemsinpack.tpl');
-        }
-    }
 
     /**
      * Hook header
@@ -131,6 +117,38 @@ class ItemsInPack extends Module
         ], ' id_product = ' . $idProduct)
         ) {
             $this->context->controller->_errors[] = Tools::displayError('Error: ') . mysql_error();
+        }
+    }
+
+    /**
+     * Hook display product buttons
+     *
+     * @param array $params
+     *
+     * @return string
+     */
+    public function hookDisplayProductButtons($params)
+    {
+        if (Validate::isLoadedObject($product = new Product((int) Tools::getValue('id_product')))) {
+            $this->prepareNewTab();
+
+            return $this->display(__FILE__, 'product.tpl');
+        }
+    }
+
+    /**
+     * Hook display admin products extra
+     *
+     * @param array $params Params
+     *
+     * @return string
+     */
+    public function hookDisplayAdminProductsExtra($params)
+    {
+        if (Validate::isLoadedObject($product = new Product((int) Tools::getValue('id_product')))) {
+            $this->prepareNewTab();
+
+            return $this->display(__FILE__, 'itemsinpack.tpl');
         }
     }
 
