@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<module>
+    <name>Items in pack</name>
+    <displayName><![CDATA[Items in pack]]></displayName>
+    <version><![CDATA[1.0]]></version>
+    <description><![CDATA[Module for display items in pack's.]]></description>
+    <author><![CDATA[Oleg]]></author>
+    <tab><![CDATA[Items in pack]]></tab>
+    <is_configurable>1</is_configurable>
+    <need_instance>1</need_instance>
+</module>
