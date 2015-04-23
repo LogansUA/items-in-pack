@@ -11,8 +11,9 @@ if (!defined('_PS_VERSION_')) {
  */
 class ItemsInPack extends Module
 {
+
     /**
-     * @var boolean error
+     * @var boolean $_errors error
      */
     protected $_errors = false;
 
@@ -21,11 +22,10 @@ class ItemsInPack extends Module
      */
     public function __construct()
     {
-        $this->name          = 'itemsinpack';
-        $this->tab           = 'items_in_pack';
-        $this->version       = '1.0';
-        $this->author        = 'Oleg';
-//        $this->need_instance = 0;
+        $this->name    = 'itemsinpack';
+        $this->tab     = 'items_in_pack';
+        $this->version = '1.0';
+        $this->author  = 'Oleg';
 
         parent::__construct();
 
@@ -46,6 +46,7 @@ class ItemsInPack extends Module
             || !$this->registerHook('actionProductUpdate')
             || !$this->registerHook('displayProductButtons')
             || !$this->registerHook('displayAdminProductsExtra')
+            || !$this->registerHook('displayShoppingCartFooter')
         ) {
             return false;
         }
@@ -92,7 +93,6 @@ class ItemsInPack extends Module
         return true;
     }
 
-
     /**
      * Hook header
      *
@@ -100,7 +100,9 @@ class ItemsInPack extends Module
      */
     public function hookHeader($params)
     {
-        $this->context->controller->addJS($this->_path . '/js/itemsinpack.js');
+        $this->context->controller->addJS($this->_path . '/views/js/itemsinpack.js');
+        $this->context->controller->addJS($this->_path . '/views/js/order-page.js');
+        $this->context->controller->addCSS($this->_path . '/views/css/itemsinpack.css');
     }
 
     /**
@@ -132,7 +134,7 @@ class ItemsInPack extends Module
         if (Validate::isLoadedObject($product = new Product((int) Tools::getValue('id_product')))) {
             $this->prepareNewTab();
 
-            return $this->display(__FILE__, 'product.tpl');
+            return $this->display(__FILE__, 'views/templates/front/product.tpl');
         }
     }
 
@@ -148,8 +150,20 @@ class ItemsInPack extends Module
         if (Validate::isLoadedObject($product = new Product((int) Tools::getValue('id_product')))) {
             $this->prepareNewTab();
 
-            return $this->display(__FILE__, 'itemsinpack.tpl');
+            return $this->display(__FILE__, 'views/templates/admin/itemsinpack.tpl');
         }
+    }
+
+    /**
+     * Hook display shopping cart footer
+     *
+     * @param array $params
+     *
+     * @return string
+     */
+    public function hookDisplayShoppingCartFooter($params)
+    {
+//        return $this->display(__FILE__, 'product.tpl');
     }
 
     /**
@@ -162,7 +176,8 @@ class ItemsInPack extends Module
      */
     public function getCustomField($idProduct)
     {
-        $result = Db::getInstance()->ExecuteS('SELECT items_in_pack FROM ' . _DB_PREFIX_ . 'product WHERE id_product = ' . (int) $idProduct);
+        $result = Db::getInstance()
+            ->ExecuteS('SELECT items_in_pack FROM ' . _DB_PREFIX_ . 'product WHERE id_product = ' . (int) $idProduct);
 
         if (!$result) {
             return [];

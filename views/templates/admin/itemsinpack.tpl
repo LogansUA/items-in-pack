@@ -1,3 +1,4 @@
+<!-- Block items in pack module -->
 <div class="panel product-tab">
     <h3>{l s='Items in pack' mod='itemsinpack'}</h3>
 
@@ -22,4 +23,6 @@
         </button>
     </div>
 </div>
+<!-- /Block items in pack module -->
+
 
