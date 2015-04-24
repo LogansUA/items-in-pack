@@ -130,7 +130,9 @@ class ItemsInPack extends Module
      */
     public function hookDisplayProductButtons($params)
     {
-        if (Validate::isLoadedObject($product = new Product((int) Tools::getValue('id_product')))) {
+        $product = new Product((int) Tools::getValue('id_product'));
+
+        if (Validate::isLoadedObject($product)) {
             $this->prepareNewTab();
 
             return $this->display(__FILE__, 'views/templates/front/product.tpl');
