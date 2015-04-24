@@ -46,7 +46,6 @@ class ItemsInPack extends Module
             || !$this->registerHook('actionProductUpdate')
             || !$this->registerHook('displayProductButtons')
             || !$this->registerHook('displayAdminProductsExtra')
-            || !$this->registerHook('displayShoppingCartFooter')
         ) {
             return false;
         }
@@ -147,23 +146,13 @@ class ItemsInPack extends Module
      */
     public function hookDisplayAdminProductsExtra($params)
     {
-        if (Validate::isLoadedObject($product = new Product((int) Tools::getValue('id_product')))) {
+        $product = new Product((int) Tools::getValue('id_product'));
+
+        if (Validate::isLoadedObject($product)) {
             $this->prepareNewTab();
 
             return $this->display(__FILE__, 'views/templates/admin/itemsinpack.tpl');
         }
-    }
-
-    /**
-     * Hook display shopping cart footer
-     *
-     * @param array $params
-     *
-     * @return string
-     */
-    public function hookDisplayShoppingCartFooter($params)
-    {
-//        return $this->display(__FILE__, 'product.tpl');
     }
 
     /**

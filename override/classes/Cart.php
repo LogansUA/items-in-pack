@@ -72,7 +72,6 @@ class Cart extends CartCore
 
         $sql->leftJoin('specific_price', 'sp', 'sp.`id_product` = cp.`id_product`'); // AND 'sp.`id_shop` = cp.`id_shop`
 
-        // @todo test if everything is ok, then refactorise call of this method
         $sql->join(Product::sqlStock('cp', 'cp'));
 
         // Build WHERE clauses
