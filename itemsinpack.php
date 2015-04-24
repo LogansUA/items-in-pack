@@ -76,6 +76,8 @@ class ItemsInPack extends Module
      */
     public function alterTable($method)
     {
+        $sql = '';
+
         switch ($method) {
             case 'add':
                 $sql = 'ALTER TABLE ' . _DB_PREFIX_ . 'product ADD `items_in_pack` INT(10) DEFAULT 1';
@@ -130,9 +132,7 @@ class ItemsInPack extends Module
      */
     public function hookDisplayProductButtons($params)
     {
-        $product = new Product((int) Tools::getValue('id_product'));
-
-        if (Validate::isLoadedObject($product)) {
+        if (Validate::isLoadedObject(new Product((int) Tools::getValue('id_product')))) {
             $this->prepareNewTab();
 
             return $this->display(__FILE__, 'views/templates/front/product.tpl');
@@ -148,9 +148,7 @@ class ItemsInPack extends Module
      */
     public function hookDisplayAdminProductsExtra($params)
     {
-        $product = new Product((int) Tools::getValue('id_product'));
-
-        if (Validate::isLoadedObject($product)) {
+        if (Validate::isLoadedObject(new Product((int) Tools::getValue('id_product')))) {
             $this->prepareNewTab();
 
             return $this->display(__FILE__, 'views/templates/admin/itemsinpack.tpl');
@@ -187,5 +185,3 @@ class ItemsInPack extends Module
         $this->context->smarty->assign('itemsInPack', $this->getCustomField($idProduct));
     }
 }
-
-?>
