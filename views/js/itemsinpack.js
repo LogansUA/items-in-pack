@@ -9,7 +9,6 @@ $(function () {
         var packTag = function (count) {
             return '<span id="count-items-in-pack">' + count * itemsInPack + ' шт.' + '</span>';
         };
-
         var inputTag = function (count) {
             return '<input type="text" class="text" name="pack" value="' + count + ' уп.' + '" />'
         };
@@ -38,7 +37,6 @@ $(function () {
                 items++;
 
                 $quantityInput.val(items * itemsInPack - 1);
-
             }
 
             $('#count-items-in-pack').html(items * itemsInPack + ' шт.');

@@ -9,7 +9,7 @@ $(function () {
     $('tbody').find('tr').each(function () {
         var $tbody = $(this);
 
-        var itemsInPack = parseInt($(this).attr('id').match(/\d+/g)[4]);
+        var itemsInPack = parseInt($(this).data('items-in-pack'));
         var count = parseInt($(this).find('.cart_quantity input[type="hidden"]').val());
         var pack = count / itemsInPack;
 
