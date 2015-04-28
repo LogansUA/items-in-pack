@@ -5,7 +5,7 @@ if (!defined('_PS_VERSION_')) {
 }
 
 /**
- * ItemsInPack
+ * Class ItemsInPack
  *
  * @author Oleg Kachinsky <logansoleg@gmail.com>
  */
