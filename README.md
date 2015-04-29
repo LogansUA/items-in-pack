@@ -17,5 +17,5 @@ mv items-in-pack/ YourShop/modules/
 ```
 * Add data attribute to `tr` tag in `YourShop/themes/default-bootstrap/shopping-cart-product-line.tpl` like that
 ```
-data-items-in-pack="{$product.items_in_pack}"
+{if isset($product.items_in_pack)}data-items-in-pack="{$product.items_in_pack}"{/if}
 ```
