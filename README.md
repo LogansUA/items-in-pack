@@ -13,7 +13,7 @@ git clone https://github.com/LogansUA/ps_itemsinpack.git
 ```
 * Move module dir (`ps_itemsinpack`) to modules folder of your shop
 ```
-mv items-in-pack/ YourShop/modules/
+mv ps_itemsinpack/ YourShop/modules/
 ```
 * Add data attribute to `tr` tag in `YourShop/themes/default-bootstrap/shopping-cart-product-line.tpl` like that
 ```
